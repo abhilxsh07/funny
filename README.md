@@ -1,2 +1,1 @@
-# funny
-Random ideas which in a logical sense is nonsensical
+This is where creative ideas go to die. 
