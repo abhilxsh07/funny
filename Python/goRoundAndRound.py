@@ -8,6 +8,8 @@ def f():
         f()
     except RecursionError:
         f()
+
+#MAIN
 c = 0
 f()
 
