@@ -12,5 +12,5 @@ def f():
 #MAIN
 c = 0
 f()
-
+#press Alt+F4 to exit
 
