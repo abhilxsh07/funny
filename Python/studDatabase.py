@@ -1,3 +1,6 @@
+#My 12th csc project cause I was limited to such an insultingly low scope
+
+
 import mysql.connector as m
 
 # Establish connection to the database
