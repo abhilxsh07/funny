@@ -1,11 +1,14 @@
-#My 12th csc project cause I was limited to such an insultingly low scope
-
+#Me old grade 12 cs project dont mind this
 
 import mysql.connector as m
 
 # Establish connection to the database
-con = m.connect(host='localhost', user='root', password='root', database='test_env')
-cur = con.cursor()
+try:
+    con = m.connect(host='localhost', user='root', password='root', database='test_env')
+    cur = con.cursor()
+except m.Error as err:
+    print(f"Error: {err}")
+    exit()
 
 # Create student table if it doesn't exist
 t = '''
@@ -28,39 +31,54 @@ con.commit()
 # Functions for managing student records
 
 def gender():
-    cur.execute("SELECT gender, COUNT(*) FROM student GROUP BY gender")
-    students = cur.fetchall()
-    print("Gender \t Count")
-    for gender, count in students:
-        print(gender, "\t", count)
+    try:
+        cur.execute("SELECT gender, COUNT(*) FROM student GROUP BY gender")
+        students = cur.fetchall()
+        print("Gender \t Count")
+        for gender, count in students:
+            print(gender, "\t", count)
+    except m.Error as err:
+        print(f"Error: {err}")
 
 def section():
-    cur.execute("SELECT Class, Section, COUNT(*) FROM student GROUP BY Class, Section")
-    students = cur.fetchall()
-    print("Class \t Section \t Count")
-    for cls, section, count in students:
-        print(cls, "\t", section, "\t\t", count)
+    try:
+        cur.execute("SELECT Class, Section, COUNT(*) FROM student GROUP BY Class, Section")
+        students = cur.fetchall()
+        print("Class \t Section \t Count")
+        for cls, section, count in students:
+            print(cls, "\t", section, "\t\t", count)
+    except m.Error as err:
+        print(f"Error: {err}")
 
 def stream():
-    cur.execute("SELECT stream, COUNT(*) FROM student GROUP BY stream")
-    students = cur.fetchall()
-    print("Stream \t\t Count")
-    for stream, count in students:
-        print(stream, '\t', count)
+    try:
+        cur.execute("SELECT stream, COUNT(*) FROM student GROUP BY stream")
+        students = cur.fetchall()
+        print("Stream \t\t Count")
+        for stream, count in students:
+            print(stream, '\t', count)
+    except m.Error as err:
+        print(f"Error: {err}")
 
 def religion():
-    cur.execute("SELECT religion, COUNT(*) FROM student GROUP BY religion")
-    students = cur.fetchall()
-    print("Religion \t Count")
-    for religion, count in students:
-        print(religion, '\t\t', count)
+    try:
+        cur.execute("SELECT religion, COUNT(*) FROM student GROUP BY religion")
+        students = cur.fetchall()
+        print("Religion \t Count")
+        for religion, count in students:
+            print(religion, '\t\t', count)
+    except m.Error as err:
+        print(f"Error: {err}")
 
 def names():
-    cur.execute("SELECT * FROM student ORDER BY name")
-    students = cur.fetchall()
-    print("Admission no \t Name \t\t Class \t Section \t Stream \t DOB \t\t Gender \t Blood Group \t Religion \t Contact no.")
-    for student in students:
-        print(student[0], "\t\t", student[1], "\t", student[2], "\t", student[3], "\t\t", student[4], "\t", student[5], "\t", student[6], "\t\t", student[7], "\t\t", student[8], "\t\t", student[9])
+    try:
+        cur.execute("SELECT * FROM student ORDER BY name")
+        students = cur.fetchall()
+        print("Admission no \t Name \t\t Class \t Section \t Stream \t DOB \t\t Gender \t Blood Group \t Religion \t Contact no.")
+        for student in students:
+            print(student[0], "\t\t", student[1], "\t", student[2], "\t", student[3], "\t\t", student[4], "\t", student[5], "\t", student[6], "\t\t", student[7], "\t\t", student[8], "\t\t", student[9])
+    except m.Error as err:
+        print(f"Error: {err}")
 
 def update():
     Admn = int(input("Enter the Admission no. of the student whose details are to be updated: "))
@@ -103,8 +121,8 @@ def update():
         
         print("Updated", columns[change], "for student with Admission number", Admn)
     
-    except Exception as e:
-        print("Error:", e)
+    except m.Error as err:
+        print(f"Error: {err}")
 
     con.commit()
 
@@ -123,8 +141,8 @@ def yeet():
         con.commit()
         print("Record deleted successfully!")
     
-    except Exception as e:
-        print("Error:", e)
+    except m.Error as err:
+        print(f"Error: {err}")
 
 def add():
     try:
@@ -153,8 +171,8 @@ def add():
 
         print("New student added successfully!")
 
-    except Exception as e:
-        print("Error:", e)
+    except m.Error as err:
+        print(f"Error: {err}")
 
 def lookup():
     try:
@@ -170,49 +188,55 @@ def lookup():
         else:
             print("No student found with the name", name)
     
-    except Exception as e:
-        print("Error:", e)
+    except m.Error as err:
+        print(f"Error: {err}")
 
 def show_students_in_section():
-    section = input("Enter the section: ")
-    cur.execute("SELECT * FROM student WHERE Section = %s", (section,))
-    students = cur.fetchall()
+    try:
+        section = input("Enter the section: ")
+        cur.execute("SELECT * FROM student WHERE Section = %s", (section,))
+        students = cur.fetchall()
 
-    if students:
-        print("Admission no \t Name \t\t Class \t Section \t Stream \t DOB \t\t Gender \t Blood Group \t Religion \t Contact no.")
-        for student in students:
-            print(student[0], "\t\t", student[1], "\t", student[2], "\t", student[3], "\t\t", student[4], "\t", student[5], "\t", student[6], "\t\t", student[7], "\t\t", student[8], "\t\t", student[9])
-    else:
-        print("No students found in section", section)
+        if students:
+            print("Admission no \t Name \t\t Class \t Section \t Stream \t DOB \t\t Gender \t Blood Group \t Religion \t Contact no.")
+            for student in students:
+                print(student[0], "\t\t", student[1], "\t", student[2], "\t", student[3], "\t\t", student[4], "\t", student[5], "\t", student[6], "\t\t", student[7], "\t\t", student[8], "\t\t", student[9])
+        else:
+            print("No students found in section", section)
+    except m.Error as err:
+        print(f"Error: {err}")
 
 def class_lookup():
-    cur.execute("SELECT DISTINCT Class FROM student")
-    grades = cur.fetchall()
-    print("Available Grades:")
-    for grade in grades:
-        print(grade[0])
-    
-    selected_class = int(input("Enter the grade you want to check: "))
-    cur.execute("SELECT DISTINCT Section FROM student WHERE Class = %s", (selected_class,))
-    sections = cur.fetchall()
-    if not sections:
-        print("No sections found for grade", selected_class)
-        return
+    try:
+        cur.execute("SELECT DISTINCT Class FROM student")
+        grades = cur.fetchall()
+        print("Available Grades:")
+        for grade in grades:
+            print(grade[0])
+        
+        selected_class = int(input("Enter the grade you want to check: "))
+        cur.execute("SELECT DISTINCT Section FROM student WHERE Class = %s", (selected_class,))
+        sections = cur.fetchall()
+        if not sections:
+            print("No sections found for grade", selected_class)
+            return
 
-    print("Available Sections:")
-    for section in sections:
-        print(section[0])
-    
-    selected_section = input("Enter the section you want to check: ")
-    cur.execute("SELECT * FROM student WHERE Class = %s AND Section = %s", (selected_class, selected_section))
-    students = cur.fetchall()
+        print("Available Sections:")
+        for section in sections:
+            print(section[0])
+        
+        selected_section = input("Enter the section you want to check: ")
+        cur.execute("SELECT * FROM student WHERE Class = %s AND Section = %s", (selected_class, selected_section))
+        students = cur.fetchall()
 
-    if students:
-        print("Admission no \t Name \t\t Class \t Section \t Stream \t DOB \t\t Gender \t Blood Group \t Religion \t Contact no.")
-        for student in students:
-            print(student[0], "\t\t", student[1], "\t", student[2], "\t", student[3], "\t\t", student[4], "\t", student[5], "\t", student[6], "\t\t", student[7], "\t\t", student[8], "\t\t", student[9])
-    else:
-        print("No students found in grade", selected_class, "section", selected_section)
+        if students:
+            print("Admission no \t Name \t\t Class \t Section \t Stream \t DOB \t\t Gender \t Blood Group \t Religion \t Contact no.")
+            for student in students:
+                print(student[0], "\t\t", student[1], "\t", student[2], "\t", student[3], "\t\t", student[4], "\t", student[5], "\t", student[6], "\t\t", student[7], "\t\t", student[8], "\t\t", student[9])
+        else:
+            print("No students found in grade", selected_class, "section", selected_section)
+    except m.Error as err:
+        print(f"Error: {err}")
 
 # Main interactive loop
 while True: 
@@ -272,4 +296,3 @@ while True:
 # Close cursor and connection
 cur.close()
 con.close()
-
