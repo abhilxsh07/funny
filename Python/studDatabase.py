@@ -1,4 +1,5 @@
-#Me old grade 12 cs project dont mind this
+#Me old grade 12 cs project dont mind this, also debugged to prevent sql injections
+
 
 import mysql.connector as m
 
