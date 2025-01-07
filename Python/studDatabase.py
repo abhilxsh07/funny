@@ -29,7 +29,7 @@ t = '''
 cur.execute(t)
 con.commit()
 
-# Functions for managing student records
+# Functions for managing student records 
 
 def gender():
     try:
