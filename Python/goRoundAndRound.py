@@ -8,7 +8,7 @@ def f():
         f()
     except RecursionError: #to prevent code from stopping (inadvertently as a use case)
         f()
-
+ 
 #MAIN
 c = 0
 f()
