@@ -6,7 +6,7 @@ def f():
     c+=1
     try:
         f()
-    except RecursionError: #to prevent code from stopping (inadvertently as a use case)
+    except RecursionError: #to prevent code from stopping (inadvertently, for a use case where this function should be running all the time)
         f()
  
 #MAIN
