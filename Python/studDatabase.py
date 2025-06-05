@@ -82,7 +82,11 @@ def names():
         print(f"Error: {err}")
 
 def update():
-    Admn = int(input("Enter the Admission no. of the student whose details are to be updated: "))
+    try:
+        Admn = int(input("Enter the Admission no. of the student whose details are to be updated: "))
+    except ValueError:
+        print("Invalid input! Please enter a numeric admission number.")
+        return
     try:
         cur.execute("SELECT * FROM student WHERE Admission_Number = %s", (Admn,))
         students = cur.fetchall()
@@ -109,7 +113,11 @@ def update():
             10: "Contact_Number"
         }
 
-        change = int(input("Enter index number of column to be changed (1-10): "))
+        try:
+            change = int(input("Enter index number of column to be changed (1-10): "))
+        except ValueError:
+            print("Invalid input! Please enter a number between 1 and 10.")
+            return
         
         if change not in columns:
             print("Invalid index")
@@ -256,7 +264,11 @@ while True:
     11) Leave the console
     """)
 
-    choice = int(input("Enter the choice you wish to make: "))
+    try:
+        choice = int(input("Enter the choice you wish to make: "))
+    except ValueError:
+        print("Invalid input! Please enter a number.")
+        continue
 
     if choice == 1:
         gender()
